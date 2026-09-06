@@ -1,0 +1,14 @@
+# Base44 dev environment for a single-file static portfolio.
+# Serves index.html from the cloned source on host port 3000.
+services:
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: npx --yes serve -l tcp://0.0.0.0:3000 .
+    ports:
+      - "3000:3000"
+    environment:
+      - BASE44_PUBLIC_HOST_SUFFIX=${BASE44_PUBLIC_HOST_SUFFIX}
+    restart: unless-stopped
