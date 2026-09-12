@@ -1,1407 +1,246 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- EDIT: Change the browser tab title here -->
-  <title>Eis | Personal Portfolio</title>
-
+  <title>Timer</title>
   <style>
-    /* =========================================================
-       PERSONAL PORTFOLIO - SINGLE FILE
-       Everything is inside this index.html file.
-       ========================================================= */
-
     :root {
-      --bg: #090b14;
-      --bg-soft: #101425;
-      --card: rgba(20, 26, 48, 0.78);
-      --card-hover: rgba(27, 35, 65, 0.95);
-      --text: #f5f7ff;
-      --muted: #a9b1c7;
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #f0f6fc;
+      --muted: #8b949e;
       --primary: #4f7cff;
-      --secondary: #7c4dff;
-      --accent: #00c2ff;
-      --border: rgba(255, 255, 255, 0.09);
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      --radius: 22px;
+      --primary-hover: #3b6aed;
+      --danger: #f85149;
+      --border: rgba(255,255,255,0.1);
+      --radius: 16px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(79, 124, 255, 0.16), transparent 32%),
-        radial-gradient(circle at 85% 15%, rgba(124, 77, 255, 0.13), transparent 28%),
-        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
-    }
-
-    /* =========================================================
-       NAVIGATION
-       ========================================================= */
-
-    header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      background: rgba(9, 11, 20, 0.82);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav {
-      width: min(1120px, 92%);
-      height: 72px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .logo span {
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.92rem;
-      transition: 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .menu-btn {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 9px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    /* =========================================================
-       HERO / HOME
-       ========================================================= */
-
-    .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 70px;
-      position: relative;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 0.8fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 15px;
-      border: 1px solid rgba(79, 124, 255, 0.35);
-      border-radius: 100px;
-      color: #b9c9ff;
-      background: rgba(79, 124, 255, 0.08);
-      font-size: 0.88rem;
-      margin-bottom: 22px;
-    }
-
-    .badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: #5cff9d;
-      border-radius: 50%;
-      box-shadow: 0 0 12px #5cff9d;
-    }
-
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      line-height: 0.98;
-      margin-bottom: 18px;
-      letter-spacing: -3px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff, #8ba8ff, #7c4dff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-title {
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-      color: var(--accent);
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    .hero-description {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 1.05rem;
-      margin-bottom: 32px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
       justify-content: center;
-      padding: 14px 22px;
-      border-radius: 12px;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      box-shadow: 0 10px 30px rgba(79, 124, 255, 0.28);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(79, 124, 255, 0.4);
-    }
-
-    .btn-outline {
-      border-color: var(--border);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text);
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-3px);
-    }
-
-    .hero-card {
-      position: relative;
-      min-height: 420px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      background:
-        linear-gradient(145deg, rgba(79, 124, 255, 0.14), transparent 45%),
-        var(--card);
-      box-shadow: var(--shadow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      filter: blur(80px);
-      opacity: 0.35;
-    }
-
-    .profile-circle {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      font-weight: 900;
-      color: white;
-      background:
-        linear-gradient(135deg, rgba(79, 124, 255, 0.9), rgba(124, 77, 255, 0.9));
-      border: 8px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 60px rgba(79, 124, 255, 0.35);
-    }
-
-    .floating-card {
-      position: absolute;
-      padding: 14px 18px;
-      border-radius: 14px;
-      background: rgba(15, 19, 35, 0.88);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-      font-size: 0.9rem;
-      box-shadow: var(--shadow);
-    }
-
-    .floating-card.top {
-      top: 35px;
-      right: 25px;
-    }
-
-    .floating-card.bottom {
-      bottom: 35px;
-      left: 25px;
-    }
-
-    /* =========================================================
-       SECTIONS
-       ========================================================= */
-
-    section {
-      padding: 100px 0;
-    }
-
-    .section-header {
-      margin-bottom: 45px;
-    }
-
-    .section-label {
-      display: inline-block;
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin-bottom: 14px;
-      letter-spacing: -1px;
-    }
-
-    .section-description {
-      color: var(--muted);
-      max-width: 650px;
-    }
-
-    .card {
+    .timer-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
-      transition: 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      background: var(--card-hover);
-      border-color: rgba(79, 124, 255, 0.35);
-      box-shadow: var(--shadow);
-    }
-
-    /* =========================================================
-       ABOUT
-       ========================================================= */
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 25px;
-    }
-
-    .about-text p {
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .info-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .info-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .info-item span:first-child {
-      color: var(--muted);
-    }
-
-    .info-item span:last-child {
-      font-weight: 700;
-      text-align: right;
-    }
-
-    /* =========================================================
-       SKILLS
-       ========================================================= */
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .skill-card {
+      padding: 48px 40px;
       text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      width: min(420px, 92vw);
     }
 
-    .skill-icon {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 18px;
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      font-size: 1.8rem;
-      background: linear-gradient(
-        135deg,
-        rgba(79, 124, 255, 0.25),
-        rgba(124, 77, 255, 0.2)
-      );
-    }
-
-    .skill-card h3 {
-      margin-bottom: 8px;
-    }
-
-    .skill-card p {
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    /* =========================================================
-       TIMELINE
-       ========================================================= */
-
-    .timeline {
-      position: relative;
-      max-width: 900px;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 12px;
-      top: 5px;
-      bottom: 5px;
-      width: 2px;
-      background: linear-gradient(var(--primary), transparent);
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 45px;
-      margin-bottom: 25px;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: 4px;
-      top: 28px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--primary);
-      border: 4px solid var(--bg);
-      box-shadow: 0 0 20px rgba(79, 124, 255, 0.8);
-    }
-
-    .timeline-date {
-      color: var(--accent);
-      font-size: 0.88rem;
+    .timer-display {
+      font-size: clamp(3.5rem, 12vw, 5rem);
       font-weight: 700;
-      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+      margin-bottom: 32px;
+      color: var(--text);
     }
 
-    .timeline-card h3 {
-      margin-bottom: 6px;
-    }
+    .timer-display.running { color: var(--primary); }
 
-    .timeline-card h4 {
-      color: #c4ccdf;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-    }
-
-    .timeline-card p {
-      color: var(--muted);
-    }
-
-    /* =========================================================
-       PROJECTS
-       ========================================================= */
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .project-card {
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .project-image {
-      height: 180px;
+    .inputs {
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 3.5rem;
-      background:
-        linear-gradient(135deg, rgba(79, 124, 255, 0.55), rgba(124, 77, 255, 0.55)),
-        #11182e;
+      gap: 12px;
+      margin-bottom: 28px;
     }
 
-    .project-content {
-      padding: 25px;
-    }
-
-    .project-content h3 {
-      margin-bottom: 10px;
-    }
-
-    .project-content p {
-      color: var(--muted);
-      margin-bottom: 16px;
-      font-size: 0.93rem;
-    }
-
-    .tags {
+    .input-group {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .tag {
-      padding: 6px 10px;
-      border-radius: 100px;
-      font-size: 0.78rem;
-      color: #c7d2ff;
-      background: rgba(79, 124, 255, 0.12);
-      border: 1px solid rgba(79, 124, 255, 0.2);
-    }
-
-    /* =========================================================
-       EDUCATION / CERTIFICATIONS / SERVICES
-       ========================================================= */
-
-    .three-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .mini-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .mini-card p {
+    .input-group label {
+      font-size: 0.75rem;
       color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .service-number {
-      display: inline-block;
-      font-size: 0.8rem;
-      color: var(--accent);
-      font-weight: 800;
-      margin-bottom: 20px;
-    }
-
-    .service-card h3 {
-      margin-bottom: 12px;
-    }
-
-    .service-card p {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    /* =========================================================
-       CONTACT
-       ========================================================= */
-
-    .contact-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      padding: 35px;
-      border-radius: 28px;
+    .input-group input {
+      width: 72px;
+      padding: 10px;
+      font-size: 1.1rem;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
       border: 1px solid var(--border);
-      background:
-        radial-gradient(circle at top right, rgba(79, 124, 255, 0.15), transparent 40%),
-        var(--card);
-    }
-
-    .contact-details {
-      display: grid;
-      gap: 16px;
-    }
-
-    .contact-item {
-      padding: 16px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-    }
-
-    .contact-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .contact-item span,
-    .contact-item a {
-      color: var(--muted);
-      word-break: break-word;
-    }
-
-    .contact-form {
-      display: grid;
-      gap: 14px;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
       outline: none;
-      background: rgba(0, 0, 0, 0.18);
-      color: white;
       font: inherit;
-      transition: 0.3s;
     }
 
-    input:focus,
-    textarea:focus {
+    .input-group input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.1);
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 140px;
-    }
-
-    /* =========================================================
-       FOOTER
-       ========================================================= */
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 0;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    .footer-links {
+    .buttons {
       display: flex;
+      gap: 12px;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-bottom: 15px;
     }
 
-    .footer-links a:hover {
-      color: var(--primary);
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
     }
 
-    /* =========================================================
-       SCROLL ANIMATION
-       ========================================================= */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.7s ease;
+    .btn-start {
+      background: var(--primary);
+      color: white;
     }
+    .btn-start:hover { background: var(--primary-hover); }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+    .btn-reset {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
+    .btn-reset:hover { background: rgba(255,255,255,0.12); }
 
-    /* =========================================================
-       RESPONSIVE DESIGN
-       ========================================================= */
-
-    @media (max-width: 900px) {
-      .hero-grid,
-      .about-grid,
-      .contact-box {
-        grid-template-columns: 1fr;
-      }
-
-      .skills-grid,
-      .projects-grid,
-      .three-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-card {
-        min-height: 330px;
-      }
-
-      .nav-links {
-        position: absolute;
-        top: 72px;
-        left: 0;
-        width: 100%;
-        padding: 25px 4%;
-        background: rgba(9, 11, 20, 0.98);
-        border-bottom: 1px solid var(--border);
-        flex-direction: column;
-        align-items: flex-start;
-        display: none;
-      }
-
-      .nav-links.show {
-        display: flex;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-    }
-
-    @media (max-width: 600px) {
-      section {
-        padding: 75px 0;
-      }
-
-      .skills-grid,
-      .projects-grid,
-      .three-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 120px;
-      }
-
-      .hero h1 {
-        letter-spacing: -2px;
-      }
-
-      .profile-circle {
-        width: 180px;
-        height: 180px;
-        font-size: 4rem;
-      }
-
-      .floating-card {
-        font-size: 0.75rem;
-      }
-
-      .contact-box {
-        padding: 20px;
-      }
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
   </style>
 </head>
-
 <body>
+  <div class="timer-card">
+    <div class="timer-display" id="display">00:00</div>
 
-  <!-- =========================================================
-       NAVIGATION
-       ========================================================= -->
-  <header>
-    <nav>
-      <!-- EDIT: Change your logo/name -->
-      <a href="#home" class="logo">E<span>is</span>.</a>
-
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-        ☰
-      </button>
-
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-
-  <!-- =========================================================
-       HOME SECTION
-       EDIT: Change name, title and introduction here
-       ========================================================= -->
-  <main>
-
-    <section class="hero" id="home">
-      <div class="container">
-        <div class="hero-grid">
-
-          <div>
-            <div class="badge">Available for Opportunities</div>
-
-            <!-- EDIT: Your name -->
-            <h1>
-              Hi, I'm <span class="gradient-text">Eis</span>
-            </h1>
-
-            <!-- EDIT: Professional title -->
-            <div class="hero-title">Labor</div>
-
-            <!-- EDIT: Short introduction -->
-            <p class="hero-description">
-              Astig, hardworking, and motivated. I am passionate about developing
-              my skills, taking on new challenges, and delivering my best work
-              in every opportunity.
-            </p>
-
-            <div class="hero-buttons">
-              <a href="#projects" class="btn btn-primary">
-                View My Work
-              </a>
-
-              <a href="#contact" class="btn btn-outline">
-                Contact Me
-              </a>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <!-- EDIT: Replace "E" with your initials if desired -->
-            <div class="profile-circle">E</div>
-
-            <div class="floating-card top">
-              💼 <strong>Professional</strong><br>
-              Ready for opportunities
-            </div>
-
-            <div class="floating-card bottom">
-              🥋 <strong>Skill:</strong> Karate
-            </div>
-          </div>
-
-        </div>
+    <div class="inputs" id="inputs">
+      <div class="input-group">
+        <label for="minutes">Min</label>
+        <input type="number" id="minutes" value="0" min="0" max="999">
       </div>
-    </section>
-
-
-    <!-- =========================================================
-         ABOUT SECTION
-         ========================================================= -->
-    <section id="about">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">About Me</span>
-          <h2 class="section-title">A little about myself.</h2>
-          <p class="section-description">
-            Get to know my background, personality, and professional journey.
-          </p>
-        </div>
-
-        <div class="about-grid">
-
-          <div class="card about-text reveal">
-            <!-- EDIT: Your full about me description -->
-            <h3 style="margin-bottom: 15px;">Hello, I'm Eis.</h3>
-
-            <p>
-              I am a hardworking individual with a strong interest in personal
-              growth, professional development, and continuous learning.
-            </p>
-
-            <p>
-              My personality can be described simply as <strong>Astig</strong> —
-              confident, determined, and always ready to face new challenges.
-              I believe that dedication, discipline, and consistency are
-              important for achieving meaningful results.
-            </p>
-
-            <p>
-              I am currently looking for opportunities where I can apply my
-              skills, gain experience, and continue improving professionally.
-            </p>
-          </div>
-
-          <div class="card reveal">
-            <div class="info-list">
-
-              <!-- EDIT: Personal information -->
-              <div class="info-item">
-                <span>Name</span>
-                <span>Eis</span>
-              </div>
-
-              <div class="info-item">
-                <span>Profession</span>
-                <span>Labor</span>
-              </div>
-
-              <div class="info-item">
-                <span>Location</span>
-                <span>[YOUR LOCATION]</span>
-              </div>
-
-              <div class="info-item">
-                <span>Email</span>
-                <span>eds@gmail.com</span>
-              </div>
-
-              <div class="info-item">
-                <span>Status</span>
-                <span>Available</span>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
+      <div class="input-group">
+        <label for="seconds">Sec</label>
+        <input type="number" id="seconds" value="30" min="0" max="59">
       </div>
-    </section>
-
-
-    <!-- =========================================================
-         SKILLS SECTION
-         ========================================================= -->
-    <section id="skills">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">My Skills</span>
-          <h2 class="section-title">Skills & Strengths</h2>
-          <p class="section-description">
-            A combination of practical skills, discipline, and a willingness
-            to learn and improve.
-          </p>
-        </div>
-
-        <div class="skills-grid">
-
-          <!-- EDIT: Add or change skills -->
-          <div class="card skill-card reveal">
-            <div class="skill-icon">🥋</div>
-            <h3>Karate</h3>
-            <p>
-              Discipline, focus, physical conditioning, and continuous training.
-            </p>
-          </div>
-
-          <div class="card skill-card reveal">
-            <div class="skill-icon">💪</div>
-            <h3>Hardworking</h3>
-            <p>
-              Dedicated to completing tasks and consistently giving my best.
-            </p>
-          </div>
-
-          <div class="card skill-card reveal">
-            <div class="skill-icon">⚡</div>
-            <h3>Adaptability</h3>
-            <p>
-              Ready to learn new skills and adjust to new environments.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =========================================================
-         EXPERIENCE SECTION
-         ========================================================= -->
-    <section id="experience">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">Experience</span>
-          <h2 class="section-title">My Experience</h2>
-          <p class="section-description">
-            A summary of my professional and practical background.
-          </p>
-        </div>
-
-        <div class="timeline">
-
-          <!-- EDIT: Add your actual work experience -->
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-
-            <div class="card timeline-card">
-              <div class="timeline-date">Experience</div>
-
-              <h3>Tumaya</h3>
-              <h4>Professional Experience</h4>
-
-              <p>
-                Gained practical experience, developed discipline, and learned
-                the importance of responsibility and completing assigned tasks.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =========================================================
-         PROJECTS SECTION
-         ========================================================= -->
-    <section id="projects">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">Portfolio</span>
-          <h2 class="section-title">Projects I've Worked On</h2>
-          <p class="section-description">
-            Selected projects and activities from my experience.
-          </p>
-        </div>
-
-        <div class="projects-grid">
-
-          <!-- EDIT: Add your real projects here -->
-          <article class="card project-card reveal">
-            <div class="project-image">🏫</div>
-
-            <div class="project-content">
-              <h3>School Project</h3>
-
-              <p>
-                A project completed as part of my school experience and learning journey.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Education</span>
-                <span class="tag">Project</span>
-                <span class="tag">Learning</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card project-card reveal">
-            <div class="project-image">🥋</div>
-
-            <div class="project-content">
-              <h3>Karate Development</h3>
-
-              <p>
-                Personal training and skill development focused on discipline,
-                strength, focus, and continuous improvement.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Karate</span>
-                <span class="tag">Discipline</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card project-card reveal">
-            <div class="project-image">🚀</div>
-
-            <div class="project-content">
-              <h3>Future Project</h3>
-
-              <p>
-                This section can be updated with another professional, personal,
-                or client project.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Coming Soon</span>
-                <span class="tag">Portfolio</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =========================================================
-         EDUCATION SECTION
-         ========================================================= -->
-    <section id="education">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">Education</span>
-          <h2 class="section-title">Education</h2>
-        </div>
-
-        <div class="three-grid">
-
-          <!-- EDIT: Education details -->
-          <div class="card mini-card reveal">
-            <h3>2 Year Education</h3>
-            <p>
-              Completed 2 years of education and developed knowledge,
-              discipline, and practical learning experience.
-            </p>
-          </div>
-
-          <div class="card mini-card reveal">
-            <h3>Continuous Learning</h3>
-            <p>
-              Committed to improving skills and gaining more experience
-              through practice and new opportunities.
-            </p>
-          </div>
-
-          <div class="card mini-card reveal">
-            <h3>Professional Growth</h3>
-            <p>
-              Focused on building a stronger career and developing valuable
-              skills for future opportunities.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =========================================================
-         CERTIFICATIONS SECTION
-         ========================================================= -->
-    <section id="certifications">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">Credentials</span>
-          <h2 class="section-title">Certifications</h2>
-          <p class="section-description">
-            Academic and professional achievements.
-          </p>
-        </div>
-
-        <div class="three-grid">
-
-          <!-- EDIT: Add your real certifications -->
-          <div class="card mini-card reveal">
-            <div class="skill-icon" style="margin-left: 0;">🎓</div>
-            <h3>Diploma</h3>
-            <p>
-              Completed educational requirements and earned a diploma.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =========================================================
-         SERVICES SECTION
-         ========================================================= -->
-    <section id="services">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">What I Offer</span>
-          <h2 class="section-title">My Services</h2>
-          <p class="section-description">
-            Services and professional support I can provide.
-          </p>
-        </div>
-
-        <div class="three-grid">
-
-          <!-- EDIT: Add more services if needed -->
-          <div class="card service-card reveal">
-            <span class="service-number">01</span>
-            <h3>Coaching</h3>
-
-            <p>
-              Providing coaching, guidance, motivation, and support to help
-              individuals improve their skills and reach their goals.
-            </p>
-
-            <a href="#contact" class="btn btn-outline">
-              Contact Me
-            </a>
-          </div>
-
-          <div class="card service-card reveal">
-            <span class="service-number">02</span>
-            <h3>Skill Guidance</h3>
-
-            <p>
-              Sharing practical knowledge, discipline, and personal development
-              techniques based on experience.
-            </p>
-
-            <a href="#contact" class="btn btn-outline">
-              Learn More
-            </a>
-          </div>
-
-          <div class="card service-card reveal">
-            <span class="service-number">03</span>
-            <h3>Personal Development</h3>
-
-            <p>
-              Helping encourage focus, discipline, confidence, and continuous
-              improvement.
-            </p>
-
-            <a href="#contact" class="btn btn-outline">
-              Get in Touch
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =========================================================
-         CONTACT SECTION
-         ========================================================= -->
-    <section id="contact">
-      <div class="container">
-
-        <div class="section-header reveal">
-          <span class="section-label">Contact</span>
-          <h2 class="section-title">Let's Work Together</h2>
-          <p class="section-description">
-            Interested in working with me or have an opportunity to discuss?
-            Feel free to contact me.
-          </p>
-        </div>
-
-        <div class="contact-box reveal">
-
-          <div class="contact-details">
-
-            <!-- EDIT: Email -->
-            <div class="contact-item">
-              <strong>Email</strong>
-              <a href="mailto:eds@gmail.com">eds@gmail.com</a>
-            </div>
-
-            <!-- EDIT: LinkedIn link -->
-            <div class="contact-item">
-              <strong>LinkedIn</strong>
-              <a href="#">[YOUR LINKEDIN OR #]</a>
-            </div>
-
-            <!-- EDIT: GitHub link -->
-            <div class="contact-item">
-              <strong>GitHub</strong>
-              <a href="#">[YOUR GITHUB OR #]</a>
-            </div>
-
-            <!-- EDIT: Location -->
-            <div class="contact-item">
-              <strong>Location</strong>
-              <span>[YOUR LOCATION]</span>
-            </div>
-
-          </div>
-
-          <!-- Simple contact form -->
-          <form class="contact-form" id="contactForm">
-
-            <input
-              type="text"
-              id="name"
-              placeholder="Your Name"
-              required
-            >
-
-            <input
-              type="email"
-              id="email"
-              placeholder="Your Email"
-              required
-            >
-
-            <textarea
-              id="message"
-              placeholder="Your Message"
-              required
-            ></textarea>
-
-            <button type="submit" class="btn btn-primary">
-              Send Message
-            </button>
-
-          </form>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-
-  <!-- =========================================================
-       FOOTER
-       ========================================================= -->
-  <footer>
-    <div class="container">
-
-      <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-
-      <!-- EDIT: Change the name if needed -->
-      <p>
-        © <span id="year"></span> Eis. All Rights Reserved.
-      </p>
-
     </div>
-  </footer>
 
+    <div class="buttons">
+      <button class="btn btn-start" id="startBtn">Start</button>
+      <button class="btn btn-reset" id="resetBtn">Reset</button>
+    </div>
+  </div>
 
-  <!-- =========================================================
-       JAVASCRIPT
-       ========================================================= -->
   <script>
-    /* MOBILE MENU */
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
+    let totalSeconds = 0;
+    let remaining = 0;
+    let intervalId = null;
+    let isRunning = false;
 
-    menuBtn.addEventListener("click", function () {
-      navLinks.classList.toggle("show");
+    const display = document.getElementById('display');
+    const minutesInput = document.getElementById('minutes');
+    const secondsInput = document.getElementById('seconds');
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const inputs = document.getElementById('inputs');
 
-      menuBtn.textContent =
-        navLinks.classList.contains("show") ? "✕" : "☰";
-    });
-
-
-    /* CLOSE MOBILE MENU WHEN A LINK IS CLICKED */
-    document.querySelectorAll(".nav-links a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        navLinks.classList.remove("show");
-        menuBtn.textContent = "☰";
-      });
-    });
-
-
-    /* SCROLL REVEAL ANIMATION */
-    const reveals = document.querySelectorAll(".reveal");
-
-    function revealOnScroll() {
-      reveals.forEach(function (element) {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const revealPoint = 100;
-
-        if (elementTop < windowHeight - revealPoint) {
-          element.classList.add("active");
-        }
-      });
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     }
 
-    window.addEventListener("scroll", revealOnScroll);
-    window.addEventListener("load", revealOnScroll);
+    function updateDisplay() {
+      display.textContent = formatTime(remaining);
+    }
 
+    function getInputSeconds() {
+      const m = parseInt(minutesInput.value) || 0;
+      const s = parseInt(secondsInput.value) || 0;
+      return m * 60 + s;
+    }
 
-    /* AUTOMATIC FOOTER YEAR */
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    function start() {
+      if (isRunning) {
+        pause();
+        return;
+      }
 
+      if (remaining <= 0) {
+        remaining = getInputSeconds();
+        if (remaining <= 0) return;
+      }
 
-    /* CONTACT FORM
-       This opens the user's email application.
-       Change the email address below if needed.
-    */
-    document
-      .getElementById("contactForm")
-      .addEventListener("submit", function (event) {
+      isRunning = true;
+      startBtn.textContent = 'Pause';
+      display.classList.add('running');
+      inputs.style.opacity = '0.4';
+      inputs.style.pointerEvents = 'none';
 
-        event.preventDefault();
+      intervalId = setInterval(() => {
+        remaining--;
+        updateDisplay();
+        if (remaining <= 0) {
+          clearInterval(intervalId);
+          intervalId = null;
+          isRunning = false;
+          startBtn.textContent = 'Start';
+          display.classList.remove('running');
+          inputs.style.opacity = '1';
+          inputs.style.pointerEvents = 'auto';
+          alert('Timer finished!');
+        }
+      }, 1000);
+    }
 
-        const name =
-          document.getElementById("name").value;
+    function pause() {
+      clearInterval(intervalId);
+      intervalId = null;
+      isRunning = false;
+      startBtn.textContent = 'Resume';
+      display.classList.remove('running');
+    }
 
-        const email =
-          document.getElementById("email").value;
+    function reset() {
+      clearInterval(intervalId);
+      intervalId = null;
+      isRunning = false;
+      remaining = 0;
+      startBtn.textContent = 'Start';
+      display.classList.remove('running');
+      inputs.style.opacity = '1';
+      inputs.style.pointerEvents = 'auto';
+      updateDisplay();
+    }
 
-        const message =
-          document.getElementById("message").value;
+    startBtn.addEventListener('click', start);
+    resetBtn.addEventListener('click', reset);
 
-        const subject =
-          encodeURIComponent("Portfolio Contact from " + name);
-
-        const body =
-          encodeURIComponent(
-            "Name: " + name +
-            "\nEmail: " + email +
-            "\n\nMessage:\n" + message
-          );
-
-        /* EDIT: Change eds@gmail.com if needed */
-        window.location.href =
-          "mailto:eds@gmail.com?subject=" +
-          subject +
-          "&body=" +
-          body;
+    [minutesInput, secondsInput].forEach(input => {
+      input.addEventListener('input', () => {
+        if (!isRunning) {
+          remaining = getInputSeconds();
+          updateDisplay();
+        }
       });
-  </script>
+    });
 
+    // init
+    remaining = getInputSeconds();
+    updateDisplay();
+  </script>
 </body>
 </html>
-```
